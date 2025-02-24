@@ -5,27 +5,27 @@ description = ""
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
-    { name = "Flet developer", email = "you@example.com" }
+    { name = "KOGA Mitsuhiro", email = "shiena.jp@gmail.com" }
 ]
 dependencies = [
-  "dropzone @ file://C:\\Users\\shiena\\dev\\flet-dropzone",
+  "dropzone @ git+https://github.com/shiena/flet-dropzone.git",
   "flet>=0.27.1",
 ]
 
 [tool.flet]
 # org name in reverse domain name notation, e.g. "com.mycompany".
 # Combined with project.name to build bundle ID for iOS and Android apps
-org = "com.mycompany"
+org = "com.github.shiena"
 
 # project display name that is used as an app title on Android and iOS home screens,
 # shown in window titles and about app dialogs on desktop.
 product = "dropzone-example"
 
 # company name to display in about app dialogs
-company = "Flet"
+company = "KOGA Mitsuhiro"
 
 # copyright text to display in about app dialogs
-copyright = "Copyright (C) 2025 by MyCompany"
+copyright = "Copyright (C) 2025 by KOGA Mitsuhiro"
 
 [tool.flet.app]
 path = "src"

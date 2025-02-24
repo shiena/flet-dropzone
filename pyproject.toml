@@ -5,17 +5,17 @@ description = "Dropzone control for Flet"
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
-    { name = "Flet contributors", email = "you@example.com" }
+    { name = "KOGA Mitsuhiro", email = "shiena.jp@gmail.com" }
 ]
 dependencies = [
     "flet>=0.27.1",
 ]
 
 [project.urls]
-Homepage = "https://mydomain.dev"
-Documentation = "https://github.com/MyGithubAccount/dropzone"
-Repository = "https://github.com/MyGithubAccount/dropzone"
-Issues = "https://github.com/MyGithubAccount/dropzone/issues"
+Homepage = "https://github.com/shiena"
+Documentation = "https://github.com/shiena/dropzone"
+Repository = "https://github.com/shiena/dropzone"
+Issues = "https://github.com/shiena/dropzone/issues"
 
 [tool.setuptools.package-data]
 "flutter.dropzone" = ["**/*"]

@@ -1,8 +1,8 @@
 name: dropzone
 description: Flet Dropzone control
-repository: https://github.com/MyGithubAccount/dropzone/src/flutter/dropzone
+repository: https://github.com/shiena/dropzone/src/flutter/dropzone
 version: 0.1.0
-homepage: https://github.com/MyGithubAccount/dropzone
+homepage: https://github.com/shiena/dropzone
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
