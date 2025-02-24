@@ -1,6 +1,6 @@
 import flet as ft
 
-from dropzone import Dropzone
+import dropzone as ftd
 
 
 def main(page: ft.Page):
@@ -8,13 +8,13 @@ def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
     page.add(
-
-                ft.Container(height=150, width=300, alignment = ft.alignment.center, bgcolor=ft.Colors.PURPLE_200, content=Dropzone(
-                    tooltip="My new Dropzone Control tooltip",
-                    value = "My new Dropzone Flet Control", 
-                ),),
-
-    )
+            ftd.Dropzone(
+                content=ft.Container(ft.Text("Drop here!"), width=500, height=500, alignment=ft.alignment.center, bgcolor='red'),
+                on_dropped=lambda e: print(f'Dropped: {e.files}'),
+                on_entered=lambda e: print('Entered'),
+                on_exited=lambda e: print('Exited')
+                )
+            )
 
 
 ft.app(main)
