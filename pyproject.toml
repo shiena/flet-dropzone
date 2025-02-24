@@ -1,12 +1,36 @@
 [project]
-name = "flet-dropzone"
+name = "dropzone"
 version = "0.1.0"
-description = "Add your description here"
+description = "Dropzone control for Flet"
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = []
-
-[dependency-groups]
-dev = [
-    "flet[all]>=0.27.1",
+authors = [
+    { name = "Flet contributors", email = "you@example.com" }
 ]
+dependencies = [
+    "flet>=0.27.1",
+]
+
+[project.urls]
+Homepage = "https://mydomain.dev"
+Documentation = "https://github.com/MyGithubAccount/dropzone"
+Repository = "https://github.com/MyGithubAccount/dropzone"
+Issues = "https://github.com/MyGithubAccount/dropzone/issues"
+
+[tool.setuptools.package-data]
+"flutter.dropzone" = ["**/*"]
+
+[tool.uv]
+dev-dependencies = [
+    "flet[all]==0.27.1",
+]
+
+[tool.poetry.group.dev.dependencies]
+flet = {extras = ["all"], version = "0.27.1"}
+
+[tool.setuptools]
+license-files = []
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
