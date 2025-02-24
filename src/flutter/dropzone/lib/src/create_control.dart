@@ -8,6 +8,10 @@ CreateControlFactory createControl = (CreateControlArgs args) {
       return DropzoneControl(
         parent: args.parent,
         control: args.control,
+		children: args.children,
+		parentDisabled: args.parentDisabled,
+		parentAdaptive: args.parentAdaptive,
+		backend: args.backend,
       );
     default:
       return null;
