@@ -22,7 +22,7 @@ Issues = "https://github.com/shiena/dropzone/issues"
 
 [tool.uv]
 dev-dependencies = [
-    "flet[all]>=0.27.2",
+    "flet[all]>=0.27.3",
 ]
 
 [tool.poetry.group.dev.dependencies]
