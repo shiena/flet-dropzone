@@ -2,7 +2,13 @@
 
 Dropzone control for Flet integrating [desktop_drop](https://pub.dev/packages/desktop_drop)
 
-Example
+## Installation
+
+```bash
+pip install git@https://github.com/shiena/flet-dropzone.git
+```
+
+## Example
 
 ```py
 import flet as ft
