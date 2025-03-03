@@ -8,25 +8,25 @@ authors = [
     { name = "KOGA Mitsuhiro", email = "shiena.jp@gmail.com" }
 ]
 dependencies = [
-    "flet>=0.27.1",
+    "flet>=0.27.0",
 ]
 
 [project.urls]
 Homepage = "https://github.com/shiena"
-Documentation = "https://github.com/shiena/dropzone"
-Repository = "https://github.com/shiena/dropzone"
-Issues = "https://github.com/shiena/dropzone/issues"
+Documentation = "https://github.com/shiena/flet-dropzone"
+Repository = "https://github.com/shiena/flet-dropzone"
+Issues = "https://github.com/shiena/flet-dropzone/issues"
 
 [tool.setuptools.package-data]
 "flutter.dropzone" = ["**/*"]
 
 [tool.uv]
 dev-dependencies = [
-    "flet[all]>=0.27.3",
+    "flet[all]>=0.27.4",
 ]
 
 [tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = "0.27.1"}
+flet = {extras = ["all"], version = "0.27.4"}
 
 [tool.setuptools]
 license-files = []
