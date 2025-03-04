@@ -5,7 +5,27 @@ Dropzone control for Flet integrating [desktop_drop](https://pub.dev/packages/de
 ## Installation
 
 ```bash
-pip install git@https://github.com/shiena/flet-dropzone.git
+pip install git+https://github.com/shiena/flet-dropzone.git
+```
+
+Build the library before running the script.
+
+for windows user:
+
+```bash
+flet build windows -v
+```
+
+for macOS user:
+
+```bash
+flet build macos -v
+```
+
+for linux user:
+
+```bash
+flet build linux -v
 ```
 
 ## Example
