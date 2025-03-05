@@ -14,19 +14,21 @@ from flet.core.control_event import ControlEvent
 from flet.core.control import Control, OptionalNumber
 from flet.core.ref import Ref
 from flet.core.types import (
-        ClipBehavior,
-        OffsetValue,
-        OptionalControlEventCallable,
-        ResponsiveNumber,
-        RotateValue,
-        ScaleValue,
+    ClipBehavior,
+    OffsetValue,
+    OptionalControlEventCallable,
+    ResponsiveNumber,
+    RotateValue,
+    ScaleValue,
 )
+
 
 class ListFiles(ControlEvent):
     def __init__(self, e: ControlEvent):
         super().__init__(e.target, e.name, e.data, e.control, e.page)
         d = json.loads(e.data)
         self.files: float = d.get("files")
+
 
 class EventHandler:
     def __init__(self, result_converter=None) -> None:
@@ -52,7 +54,9 @@ class EventHandler:
                         await self.handler(ce)
                     else:
                         e.page.run_thread(self.handler, ce)
+
         return fn
+
 
 class Dropzone(ConstrainedControl, AdaptiveControl):
     """
@@ -62,13 +66,10 @@ class Dropzone(ConstrainedControl, AdaptiveControl):
     def __init__(
         self,
         content: Optional[Control] = None,
-
         on_dropped: Optional[callable] = None,
         on_exited: Optional[callable] = None,
         on_entered: Optional[callable] = None,
-
         allowed_file_types: Optional[list] = [],
-
         #
         # ConstrainedControl
         #
@@ -100,7 +101,6 @@ class Dropzone(ConstrainedControl, AdaptiveControl):
         visible: Optional[bool] = None,
         disabled: Optional[bool] = None,
         data: Any = None,
-
         #
         # AdaptiveControl
         #
@@ -150,7 +150,6 @@ class Dropzone(ConstrainedControl, AdaptiveControl):
         self.on_exited = on_exited
 
         self.allowed_file_types = allowed_file_types
-
 
     def _get_control_name(self):
         return "dropzone"
@@ -202,4 +201,3 @@ class Dropzone(ConstrainedControl, AdaptiveControl):
     @on_exited.setter
     def on_exited(self, handler: OptionalControlEventCallable):
         self._add_event_handler("exited", handler)
-
