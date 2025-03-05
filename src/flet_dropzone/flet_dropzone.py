@@ -152,7 +152,7 @@ class Dropzone(ConstrainedControl, AdaptiveControl):
         self.allowed_file_types = allowed_file_types
 
     def _get_control_name(self):
-        return "dropzone"
+        return "flet_dropzone"
 
     def _get_children(self):
         children = []

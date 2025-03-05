@@ -1,6 +1,6 @@
 import flet as ft
 
-import dropzone as ftd
+import flet_dropzone as ftd
 
 
 def main(page: ft.Page):

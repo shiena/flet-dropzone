@@ -1,10 +1,10 @@
 import 'package:flet/flet.dart';
 
-import 'dropzone.dart';
+import 'flet_dropzone.dart';
 
 CreateControlFactory createControl = (CreateControlArgs args) {
   switch (args.control.type) {
-    case "dropzone":
+    case "flet_dropzone":
       return DropzoneControl(
         parent: args.parent,
         control: args.control,

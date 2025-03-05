@@ -1,6 +1,6 @@
 [project]
 name = "flet-dropzone"
-version = "0.1.0"
+version = "0.2.0"
 description = "Dropzone control for Flet"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -21,7 +21,7 @@ Repository = "https://github.com/shiena/flet-dropzone"
 Issues = "https://github.com/shiena/flet-dropzone/issues"
 
 [tool.setuptools.package-data]
-"flutter.dropzone" = ["**/*"]
+"flutter.flet_dropzone" = ["**/*"]
 
 [tool.uv]
 dev-dependencies = [

@@ -5,7 +5,7 @@ Dropzone control for Flet integrating [desktop_drop](https://pub.dev/packages/de
 ## Installation
 
 ```bash
-pip install git+https://github.com/shiena/flet-dropzone.git
+pip install flet-dropzone
 ```
 
 Build the library before running the script.
@@ -33,7 +33,7 @@ flet build linux -v
 ```py
 import flet as ft
 
-import dropzone as ftd
+import flet_dropzone as ftd
 
 
 def main(page: ft.Page):

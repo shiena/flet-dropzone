@@ -1,8 +1,8 @@
-name: dropzone
+name: flet_dropzone
 description: Flet Dropzone control
-repository: https://github.com/shiena/dropzone/src/flutter/dropzone
+repository: https://github.com/shiena/flet-dropzone/src/flutter/flet_dropzone
 version: 0.1.0
-homepage: https://github.com/shiena/dropzone
+homepage: https://github.com/shiena/flet-dropzone
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   desktop_drop: ^0.5.0
-  flet: 0.26.0
+  flet: 0.27.0
   flutter:
     sdk: flutter
 

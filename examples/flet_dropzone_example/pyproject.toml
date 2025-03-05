@@ -1,5 +1,5 @@
 [project]
-name = "dropzone-example"
+name = "flet-dropzone-example"
 version = "1.0.0"
 description = ""
 readme = "README.md"
@@ -8,7 +8,7 @@ authors = [
     { name = "KOGA Mitsuhiro", email = "shiena.jp@gmail.com" }
 ]
 dependencies = [
-  "dropzone @ git+https://github.com/shiena/flet-dropzone.git",
+  "flet-dropzone @ file://C:\\Users\\shiena\\dev\\flet-dropzone",
   "flet>=0.27.0",
 ]
 
@@ -19,7 +19,7 @@ org = "com.github.shiena"
 
 # project display name that is used as an app title on Android and iOS home screens,
 # shown in window titles and about app dialogs on desktop.
-product = "dropzone-example"
+product = "flet-dropzone-example"
 
 # company name to display in about app dialogs
 company = "KOGA Mitsuhiro"
@@ -32,8 +32,8 @@ path = "src"
 
 [tool.uv]
 dev-dependencies = [
-    "flet[all]>=0.27.4",
+    "flet[all]>=0.27.5",
 ]
 
 [tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = "0.27.4"}
+flet = {extras = ["all"], version = "0.27.5"}
