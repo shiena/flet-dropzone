@@ -8,7 +8,7 @@ authors = [
     { name = "KOGA Mitsuhiro", email = "shiena.jp@gmail.com" }
 ]
 dependencies = [
-  "flet-dropzone @ file://C:\\Users\\shiena\\dev\\flet-dropzone",
+  "flet-dropzone @ git+https://github.com/shiena/flet-dropzone.git",
   "flet>=0.27.0",
 ]
 
@@ -32,8 +32,8 @@ path = "src"
 
 [tool.uv]
 dev-dependencies = [
-    "flet[all]>=0.27.5",
+    "flet[all]>=0.27.0",
 ]
 
 [tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = "0.27.5"}
+flet = {extras = ["all"], version = ">=0.27.0"}
