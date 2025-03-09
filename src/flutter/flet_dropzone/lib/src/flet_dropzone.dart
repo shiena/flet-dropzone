@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flet/flet.dart';
 import 'package:flutter/material.dart';
-import 'package:desktop_drop/desktop_drop.dart';
+import 'package:super_drag_and_drop/super_drag_and_drop.dart';
 
 class DropzoneControl extends StatefulWidget {
   final Control? parent;
@@ -75,41 +75,57 @@ class _DropzoneControlState extends State<DropzoneControl> with FletStoreMixin {
 			: Container();
 
 		return withPageArgs((context, pageArgs) {
-			Widget? dropZone;
+			Widget? dropRegion;
 
-			dropZone = DropTarget(
-				onDragEntered: (details) {
+			dropRegion = DropRegion(
+				formats: Formats.standardFormats,
+				hitTestBehavior: HitTestBehavior.opaque,
+				onDropEnter: (event) {
 					setState(() {
 						_dragging = true;
 					});
 					onDragEntered();
 				},
-				onDragExited: (details) {
+				onDropLeave: (event) {
 					setState(() {
 						_dragging = false;
 					});
 					onDragExited();
 				},
-				onDragDone: (details) {
+				onDropOver: (event) {
+					final item = event.session.items.first;
+					if (event.session.allowedOperations.contains(DropOperation.copy)) {
+						return DropOperation.copy;
+					} else {
+						return DropOperation.none;
+					}
+				},
+				onPerformDrop: (event) async {
+					List<dynamic> droppedFiles = [];
+					for (final item in event.session.items) {
+						final name = await item.dataReader?.getSuggestedName();
+						if (name == null) {
+							continue;
+						}
+						droppedFiles.add(name);
+					}
+					if (_allowedFileTypes.isNotEmpty) {
+						droppedFiles = droppedFiles.where((filePath) {
+							final extension = filePath.split('.').last.toLowerCase();
+							return _allowedFileTypes.contains(extension);
+						}).toList();
+					}
 					setState(() {
-						_droppedFiles = details.files
-							.map((file) => file.path)
-							.where((filePath) {
-								if (_allowedFileTypes.isEmpty) return true;
-								final extension = filePath.split('.').last.toLowerCase();
-								return _allowedFileTypes.contains(extension);
-							})
-							.toList();
+						_droppedFiles = droppedFiles;
 						_dragging = false;
 					});
 					if (_droppedFiles.isNotEmpty) {
 						onDragDone();
 					}
 				},
-				enable: !disabled,
 				child: child,
 			);
-			return constrainedControl(context, dropZone, widget.parent, widget.control);
+			return constrainedControl(context, dropRegion, widget.parent, widget.control);
 		});
 	}
 }

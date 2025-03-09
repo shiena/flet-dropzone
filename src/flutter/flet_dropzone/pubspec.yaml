@@ -9,10 +9,13 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  desktop_drop: ^0.5.0
-  flet: 0.27.0
+  super_drag_and_drop: '>=0.8.0'
+  flet: ^0.27.0
   flutter:
     sdk: flutter
+
+dependency_overrides:
+  device_info_plug: '>=11.0.0 <12.0.0'
 
 dev_dependencies:
   flutter_test:
