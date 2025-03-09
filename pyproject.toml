@@ -11,7 +11,7 @@ classifiers = [
   "License :: OSI Approved :: Apache Software License",
 ]
 dependencies = [
-    "flet>=0.27.0",
+    "flet>=0.26.0",
 ]
 
 [project.urls]
@@ -25,11 +25,11 @@ Issues = "https://github.com/shiena/flet-dropzone/issues"
 
 [tool.uv]
 dev-dependencies = [
-    "flet[all]>=0.27.0",
+    "flet[all]>=0.26.0",
 ]
 
 [tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = ">=0.27.0"}
+flet = {extras = ["all"], version = ">=0.26.0"}
 
 [tool.setuptools]
 license-files = []
