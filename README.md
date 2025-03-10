@@ -1,6 +1,6 @@
 # Flet Dropzone control
 
-Dropzone control for Flet integrating [desktop_drop](https://pub.dev/packages/desktop_drop)
+Dropzone control for [Flet](https://flet.dev/) integrating [desktop_drop](https://pub.dev/packages/desktop_drop)
 
 ## Installation
 
