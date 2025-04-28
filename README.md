@@ -8,7 +8,7 @@ Dropzone control for [Flet](https://flet.dev/) integrating [desktop_drop](https:
 pip install flet-dropzone
 ```
 
-Build the library before running the script.
+Please build once before running.
 
 for windows user:
 
@@ -26,6 +26,12 @@ for linux user:
 
 ```bash
 flet build linux -v
+```
+
+for web user:
+
+```bash
+flet build web -v
 ```
 
 ## Example
