@@ -13,7 +13,7 @@ def main(page: ft.Page):
                 ft.Text("Drop here!"),
                 width=500,
                 height=500,
-                alignment=ft.alignment.center,
+                alignment=ft.Alignment.CENTER,
                 bgcolor="red",
             ),
             on_dropped=lambda e: print(f"Dropped: {e.files}"),
@@ -23,4 +23,4 @@ def main(page: ft.Page):
     )
 
 
-ft.app(main)
+ft.run(main)
