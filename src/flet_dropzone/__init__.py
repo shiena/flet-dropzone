@@ -1,1 +1,1 @@
-from flet_dropzone.flet_dropzone import Dropzone
+from flet_dropzone.flet_dropzone import Dropzone, DropzoneEvent

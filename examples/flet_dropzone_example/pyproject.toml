@@ -3,13 +3,13 @@ name = "flet-dropzone-example"
 version = "1.0.0"
 description = ""
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 authors = [
     { name = "KOGA Mitsuhiro", email = "shiena.jp@gmail.com" }
 ]
 dependencies = [
   "flet-dropzone @ git+https://github.com/shiena/flet-dropzone.git",
-  "flet>=0.26.0",
+  "flet>=0.80.0",
 ]
 
 [tool.flet]
@@ -32,8 +32,8 @@ path = "src"
 
 [tool.uv]
 dev-dependencies = [
-    "flet[all]>=0.26.0",
+    "flet[all]>=0.80.0",
 ]
 
 [tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = ">=0.26.0"}
+flet = {extras = ["all"], version = ">=0.80.0"}

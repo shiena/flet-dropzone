@@ -1,203 +1,60 @@
-import asyncio
-from enum import Enum
-import json
-from typing import Any, List, Optional, Sequence, Union
+from dataclasses import dataclass, field
+from typing import Generic, Optional
 
-from flet.core.adaptive_control import AdaptiveControl
-from flet.core.alignment import Alignment
-from flet.core.animation import AnimationValue
-from flet.core.tooltip import TooltipValue
-from flet.core.badge import BadgeValue
-
-from flet.core.constrained_control import ConstrainedControl
-from flet.core.control_event import ControlEvent
-from flet.core.control import Control, OptionalNumber
-from flet.core.ref import Ref
-from flet.core.types import (
-    ClipBehavior,
-    OffsetValue,
-    OptionalControlEventCallable,
-    ResponsiveNumber,
-    RotateValue,
-    ScaleValue,
+from flet.controls.adaptive_control import AdaptiveControl
+from flet.controls.base_control import control
+from flet.controls.control import Control
+from flet.controls.control_event import (
+    ControlEventHandler,
+    Event,
+    EventControlType,
+    EventHandler,
 )
+from flet.controls.layout_control import LayoutControl
+
+__all__ = ["Dropzone", "DropzoneEvent"]
 
 
-class ListFiles(ControlEvent):
-    def __init__(self, e: ControlEvent):
-        super().__init__(e.target, e.name, e.data, e.control, e.page)
-        d = json.loads(e.data)
-        self.files: float = d.get("files")
+@dataclass(kw_only=True)
+class DropzoneEvent(Event[EventControlType], Generic[EventControlType]):
+    """Event triggered when files are dropped onto the Dropzone."""
+
+    files: list[str] = field(default_factory=list)
+    """List of file paths that were dropped."""
 
 
-class EventHandler:
-    def __init__(self, result_converter=None) -> None:
-        self.__result_converter = result_converter
-        self.handler: OptionalControlEventCallable = None
-
-    def get_handler(self):
-        async def fn(e: ControlEvent):
-            if self.handler is not None:
-                ce = e
-                if self.__result_converter is not None:
-                    ce = self.__result_converter(e)
-                    if ce is not None:
-                        # ce.target = e.target
-                        # ce.name = e.name
-                        # ce.data = e.data
-                        # ce.control = e.control
-                        # ce.page = e.page
-                        data = json.loads(e.data)
-                        ce.files = data.get("files", [])
-                if ce is not None:
-                    if asyncio.iscoroutinefunction(self.handler):
-                        await self.handler(ce)
-                    else:
-                        e.page.run_thread(self.handler, ce)
-
-        return fn
-
-
-class Dropzone(ConstrainedControl, AdaptiveControl):
+@control("flet_dropzone")
+class Dropzone(LayoutControl, AdaptiveControl):
     """
     Dropzone Control.
+
+    A control that allows users to drag and drop files from the desktop.
     """
 
-    def __init__(
-        self,
-        content: Optional[Control] = None,
-        on_dropped: Optional[callable] = None,
-        on_exited: Optional[callable] = None,
-        on_entered: Optional[callable] = None,
-        allowed_file_types: Optional[list] = [],
-        #
-        # ConstrainedControl
-        #
-        ref: Optional[Ref] = None,
-        key: Optional[str] = None,
-        width: OptionalNumber = None,
-        height: OptionalNumber = None,
-        left: OptionalNumber = None,
-        top: OptionalNumber = None,
-        right: OptionalNumber = None,
-        bottom: OptionalNumber = None,
-        expand: Union[None, bool, int] = None,
-        expand_loose: Optional[bool] = None,
-        col: Optional[ResponsiveNumber] = None,
-        opacity: OptionalNumber = None,
-        rotate: Optional[RotateValue] = None,
-        scale: Optional[ScaleValue] = None,
-        offset: Optional[OffsetValue] = None,
-        aspect_ratio: OptionalNumber = None,
-        animate_opacity: Optional[AnimationValue] = None,
-        animate_size: Optional[AnimationValue] = None,
-        animate_position: Optional[AnimationValue] = None,
-        animate_rotation: Optional[AnimationValue] = None,
-        animate_scale: Optional[AnimationValue] = None,
-        animate_offset: Optional[AnimationValue] = None,
-        on_animation_end: OptionalControlEventCallable = None,
-        tooltip: Optional[TooltipValue] = None,
-        badge: Optional[BadgeValue] = None,
-        visible: Optional[bool] = None,
-        disabled: Optional[bool] = None,
-        data: Any = None,
-        #
-        # AdaptiveControl
-        #
-        adaptive: Optional[bool] = None,
-    ):
-        ConstrainedControl.__init__(
-            self,
-            ref=ref,
-            key=key,
-            width=width,
-            height=height,
-            left=left,
-            top=top,
-            right=right,
-            bottom=bottom,
-            expand=expand,
-            expand_loose=expand_loose,
-            col=col,
-            opacity=opacity,
-            rotate=rotate,
-            scale=scale,
-            offset=offset,
-            aspect_ratio=aspect_ratio,
-            animate_opacity=animate_opacity,
-            animate_size=animate_size,
-            animate_position=animate_position,
-            animate_rotation=animate_rotation,
-            animate_scale=animate_scale,
-            animate_offset=animate_offset,
-            on_animation_end=on_animation_end,
-            tooltip=tooltip,
-            badge=badge,
-            visible=visible,
-            disabled=disabled,
-            data=data,
-        )
+    content: Optional[Control] = None
+    """
+    A child Control contained by the dropzone.
+    """
 
-        AdaptiveControl.__init__(self, adaptive=adaptive)
+    allowed_file_types: list[str] = field(default_factory=list)
+    """
+    List of allowed file extensions (without the dot).
+    If empty, all file types are allowed.
+    Example: ["pdf", "png", "jpg"]
+    """
 
-        self.__on_dropped = EventHandler(lambda e: ListFiles(e))
-        self._add_event_handler("dropped", self.__on_dropped.get_handler())
+    on_dropped: Optional[EventHandler[DropzoneEvent["Dropzone"]]] = None
+    """
+    Called when files are dropped onto the dropzone.
+    The event contains a `files` property with a list of file paths.
+    """
 
-        self.content = content
+    on_entered: Optional[ControlEventHandler["Dropzone"]] = None
+    """
+    Called when a drag operation enters the dropzone area.
+    """
 
-        self.on_dropped = on_dropped
-        self.on_entered = on_entered
-        self.on_exited = on_exited
-
-        self.allowed_file_types = allowed_file_types
-
-    def _get_control_name(self):
-        return "flet_dropzone"
-
-    def _get_children(self):
-        children = []
-        if self.__content is not None:
-            self.__content._set_attr_internal("n", "content")
-            children.append(self.__content)
-        return children
-
-    def before_update(self):
-        super().before_update()
-        self._set_attr_json("allowedFileTypes", self.allowed_file_types)
-        self._set_attr_json("disabled", self.disabled)
-
-    # content
-    @property
-    def content(self) -> Optional[Control]:
-        return self.__content
-
-    @content.setter
-    def content(self, value: Optional[Control]):
-        self.__content = value
-
-    # on_dropped
-    @property
-    def on_dropped(self) -> OptionalControlEventCallable:
-        return self.__on_dropped.handler
-
-    @on_dropped.setter
-    def on_dropped(self, handler: OptionalControlEventCallable):
-        self.__on_dropped.handler = handler
-
-    # on_entered
-    @property
-    def on_entered(self) -> OptionalControlEventCallable:
-        return self._get_event_handler("entered")
-
-    @on_entered.setter
-    def on_entered(self, handler: OptionalControlEventCallable):
-        self._add_event_handler("entered", handler)
-
-    # on_exited
-    @property
-    def on_exited(self) -> OptionalControlEventCallable:
-        return self._get_event_handler("exited")
-
-    @on_exited.setter
-    def on_exited(self, handler: OptionalControlEventCallable):
-        self._add_event_handler("exited", handler)
+    on_exited: Optional[ControlEventHandler["Dropzone"]] = None
+    """
+    Called when a drag operation exits the dropzone area.
+    """
