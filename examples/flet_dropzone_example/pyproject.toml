@@ -35,5 +35,7 @@ dev-dependencies = [
     "flet[all]>=0.80.0",
 ]
 
-[tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = ">=0.80.0"}
+[dependency-groups]
+dev = [
+    "flet[all]>=0.80.0",
+]
