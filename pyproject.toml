@@ -1,6 +1,6 @@
 [project]
 name = "flet-dropzone"
-version = "0.3.0"
+version = "0.3.1"
 description = "Dropzone control for Flet"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -28,8 +28,10 @@ dev-dependencies = [
     "flet[all]>=0.80.0",
 ]
 
-[tool.poetry.group.dev.dependencies]
-flet = {extras = ["all"], version = ">=0.80.0"}
+[dependency-groups]
+dev = [
+    "flet[all]>=0.80.0",
+]
 
 [tool.setuptools]
 license-files = []
