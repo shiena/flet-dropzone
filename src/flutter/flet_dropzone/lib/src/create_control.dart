@@ -19,10 +19,3 @@ class FletDropzoneExtension extends FletExtension {
     }
   }
 }
-
-// Keep old API for backward compatibility (deprecated)
-@Deprecated('Use FletDropzoneExtension instead')
-typedef CreateControlFactory = Widget? Function(dynamic args);
-
-@Deprecated('Use FletDropzoneExtension instead')
-CreateControlFactory createControl = (_) => null;
