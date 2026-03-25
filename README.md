@@ -8,7 +8,9 @@ Dropzone control for [Flet](https://flet.dev/) integrating [desktop_drop](https:
 pip install flet-dropzone
 ```
 
-Please build once before running.
+**⚠️ Please build once before running.**<br>
+**⚠️ Please build once before running.**<br>
+**⚠️ Please build once before running.**<br>
 
 for windows user:
 
