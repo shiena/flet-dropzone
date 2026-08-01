@@ -6,6 +6,7 @@
   a list of path strings.
 * Filter `allowed_file_types` by file name instead of path, so it works on
   web where the path is a `blob:` URL without an extension.
+* Upgrade `desktop_drop` to 0.7.1 (requires Dart SDK 3.5+).
 
 ## 0.2.0
 
