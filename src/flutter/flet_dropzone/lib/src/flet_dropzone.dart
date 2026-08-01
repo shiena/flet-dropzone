@@ -15,18 +15,45 @@ class DropzoneControl extends StatefulWidget {
 class _DropzoneControlState extends State<DropzoneControl> {
   bool _dragging = false;
   List<dynamic> _allowedFileTypes = [];
-  List<dynamic> _droppedFiles = [];
+  List<DropItem> _droppedFiles = [];
 
   @override
   void initState() {
     super.initState();
     _allowedFileTypes = widget.control.get<List>("allowed_file_types") ?? [];
+    widget.control.addInvokeMethodListener(_invokeMethod);
+  }
+
+  @override
+  void dispose() {
+    widget.control.removeInvokeMethodListener(_invokeMethod);
+    super.dispose();
+  }
+
+  Future<dynamic> _invokeMethod(String name, dynamic args) async {
+    switch (name) {
+      case "read_bytes":
+        String path = args["path"];
+        // On web a dropped file is only reachable through its original
+        // XFile (a temporary blob: URL), so look it up first and fall
+        // back to reading from the path directly on desktop platforms.
+        final file = _droppedFiles
+            .cast<DropItem?>()
+            .firstWhere((f) => f!.path == path, orElse: () => null);
+        return (file ?? DropItemFile(path)).readAsBytes();
+      default:
+        throw Exception("Unknown Dropzone method: $name");
+    }
   }
 
   void _onDragDone() {
     widget.control.triggerEvent(
       "dropped",
-      {"files": _droppedFiles},
+      {
+        "files": _droppedFiles
+            .map((file) => {"name": file.name, "path": file.path})
+            .toList(),
+      },
     );
   }
 
@@ -65,10 +92,11 @@ class _DropzoneControlState extends State<DropzoneControl> {
       },
       onDragDone: (details) {
         setState(() {
-          _droppedFiles =
-              details.files.map((file) => file.path).where((filePath) {
+          // Filter by file name, not path: on web the path is a blob: URL
+          // without an extension.
+          _droppedFiles = details.files.where((file) {
             if (_allowedFileTypes.isEmpty) return true;
-            final extension = filePath.split('.').last.toLowerCase();
+            final extension = file.name.split('.').last.toLowerCase();
             return _allowedFileTypes.contains(extension);
           }).toList();
           _dragging = false;

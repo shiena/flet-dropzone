@@ -48,6 +48,11 @@ def main(page: ft.Page):
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
+    async def on_dropped(e: ftd.DropzoneEvent):
+        for file in e.files:
+            data = await e.control.read_bytes(file)
+            print(f"Dropped: {file.name} ({len(data)} bytes) from {file.path}")
+
     page.add(
         ftd.Dropzone(
             content=ft.Container(
@@ -57,7 +62,7 @@ def main(page: ft.Page):
                 alignment=ft.Alignment.CENTER,
                 bgcolor="red",
             ),
-            on_dropped=lambda e: print(f"Dropped: {e.files}"),
+            on_dropped=on_dropped,
             on_entered=lambda e: print("Entered"),
             on_exited=lambda e: print("Exited"),
         )
@@ -66,6 +71,11 @@ def main(page: ft.Page):
 
 ft.run(main)
 ```
+
+`DropzoneEvent.files` is a list of `DropzoneFile` objects with `name` and `path`
+properties. On desktop platforms `path` is a real file path, while on web it is
+a temporary `blob:` URL — use `Dropzone.read_bytes()` to get the file content on
+any platform.
 
 ## References
 

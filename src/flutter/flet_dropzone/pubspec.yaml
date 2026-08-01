@@ -1,7 +1,7 @@
 name: flet_dropzone
 description: Flet Dropzone control
 repository: https://github.com/shiena/flet-dropzone/src/flutter/flet_dropzone
-version: 0.3.0
+version: 0.4.0
 homepage: https://github.com/shiena/flet-dropzone
 
 environment:
